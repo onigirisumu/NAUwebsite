@@ -1,4 +1,3 @@
-// DOM элементы
 const burger = document.getElementById('burger');
 const navMenu = document.getElementById('navMenu');
 const loginModal = document.getElementById('loginModal');
@@ -10,36 +9,28 @@ const logoutBtn = document.getElementById('logoutBtn');
 const contactForm = document.getElementById('contactForm');
 const requestsTable = document.getElementById('requestsTable');
 
-// Проверка авторизации при загрузке
 document.addEventListener('DOMContentLoaded', () => {
-  // Проверяем флаг авторизации
   if (localStorage.getItem('isAdmin') === 'true') {
-    // Показываем ссылку на аналитику
     const analyticsLink = document.getElementById('analyticsLink');
     if (analyticsLink) analyticsLink.style.display = 'block';
     
-    // Обновляем кнопку входа
     loginBtn.textContent = 'Админ';
     
-    // Показываем админ-панель
         adminPanel.style.display = 'none';
     loadRequests();
   }
 });
 
-// Меню бургер
 burger.addEventListener('click', () => {
   burger.classList.toggle('active');
   navMenu.classList.toggle('active');
 });
 
-// Открытие модального окна
 loginBtn.addEventListener('click', () => {
   loginModal.classList.add('active');
   document.body.style.overflow = 'hidden';
 });
 
-// Закрытие модального окна
 closeModal.addEventListener('click', () => {
   loginModal.classList.remove('active');
   document.body.style.overflow = '';
@@ -51,14 +42,11 @@ loginForm.addEventListener('submit', (e) => {
   const password = document.getElementById('password').value;
   
   if (username === 'admin' && password === 'admin123') {
-    // Устанавливаем флаг авторизации в localStorage
     localStorage.setItem('isAdmin', 'true');
-    
-    // Показываем ссылку на аналитику
+  
     const analyticsLink = document.getElementById('analyticsLink');
     if (analyticsLink) analyticsLink.style.display = 'block';
     
-    // Обновляем UI
     loginModal.classList.remove('active');
     document.body.style.overflow = '';
     adminPanel.style.display = 'block';
@@ -70,19 +58,15 @@ loginForm.addEventListener('submit', (e) => {
 });
 
 
-// Выход из системы
 logoutBtn.addEventListener('click', () => {
-  // Скрываем ссылку на аналитику
   const analyticsLink = document.getElementById('analyticsLink');
   if (analyticsLink) analyticsLink.style.display = 'none';
   
-  // Очищаем флаг авторизации
   localStorage.removeItem('isAdmin');
   adminPanel.style.display = 'none';
   loginBtn.textContent = 'Войти';
 });
 
-// Загрузка заявок
 async function loadRequests() {
   try {
     const response = await fetch('/api/users');
@@ -106,7 +90,6 @@ async function loadRequests() {
       requestsTable.appendChild(row);
     });
     
-    // Add delete button handlers
     document.querySelectorAll('.btn-danger').forEach(btn => {
       btn.addEventListener('click', async () => {
         const id = btn.dataset.id;
@@ -121,7 +104,6 @@ async function loadRequests() {
   }
 }
 
-// Отправка формы
 contactForm.addEventListener('submit', async function(e) {
   e.preventDefault();
   
@@ -145,7 +127,6 @@ contactForm.addEventListener('submit', async function(e) {
     if (response.ok) {
       alert(data.message);
       this.reset();
-      // if admin is logged in this will refresh the requests
       if (adminPanel.style.display === 'block') {
         loadRequests();
       }
@@ -158,7 +139,6 @@ contactForm.addEventListener('submit', async function(e) {
 });
 
 
-// Анимации при прокрутке
 const fadeElements = document.querySelectorAll('.fade-in');
 
 const observer = new IntersectionObserver((entries) => {
