@@ -1,16 +1,12 @@
-// Получаем токен из localStorage
 const adminToken = localStorage.getItem('adminToken');
 
-// DOM элементы
 const dailyChartCtx = document.getElementById('dailyChart');
 const serviceChartCtx = document.getElementById('serviceChart');
 const hourlyChartCtx = document.getElementById('hourlyChart');
 const applyBtn = document.getElementById('applyFilters');
 
-// Экземпляры графиков
 let dailyChart, serviceChart, hourlyChart;
 
-// Функция для авторизованных запросов
 async function fetchWithAuth(url, options = {}) {
   const headers = {
     'Authorization': `Bearer ${adminToken}`,
@@ -32,7 +28,6 @@ async function fetchWithAuth(url, options = {}) {
   return response;
 }
 
-// Загрузка аналитических данных
 async function loadAnalytics() {
   try {
     const startDate = document.getElementById('startDate').value;
@@ -42,7 +37,6 @@ async function loadAnalytics() {
     if (startDate) params.append('start', startDate);
     if (endDate) params.append('end', endDate);
     
-    // Простые запросы без авторизации
     const [dailyData, serviceData, hourlyData] = await Promise.all([
       fetch(`/api/analytics/daily?${params}`).then(res => res.json()),
       fetch(`/api/analytics/services?${params}`).then(res => res.json()),
@@ -56,14 +50,11 @@ async function loadAnalytics() {
   }
 }
 
-// Обновление графиков новыми данными
 function updateCharts(dailyData, serviceData, hourlyData) {
-  // Уничтожаем существующие графики
   if (dailyChart) dailyChart.destroy();
   if (serviceChart) serviceChart.destroy();
   if (hourlyChart) hourlyChart.destroy();
   
-  // График заявок по дням (линейный)
   dailyChart = new Chart(dailyChartCtx, {
     type: 'line',
     data: {
@@ -97,7 +88,6 @@ function updateCharts(dailyData, serviceData, hourlyData) {
     }
   });
   
-  // Распределение по услугам (круговая диаграмма)
   serviceChart = new Chart(serviceChartCtx, {
     type: 'doughnut',
     data: {
@@ -125,7 +115,6 @@ function updateCharts(dailyData, serviceData, hourlyData) {
     }
   });
   
-  // Заявки по времени суток (столбчатая диаграмма)
   hourlyChart = new Chart(hourlyChartCtx, {
     type: 'bar',
     data: {
@@ -162,14 +151,12 @@ function updateCharts(dailyData, serviceData, hourlyData) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Проверка авторизации
   if (localStorage.getItem('isAdmin') !== 'true') {
     alert('Требуется авторизация администратора');
     window.location.href = '/';
     return;
   }
   
-  // Устанавливаем даты по умолчанию
   const now = new Date();
   const oneMonthAgo = new Date();
   oneMonthAgo.setMonth(now.getMonth() - 1);
@@ -177,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('startDate').valueAsDate = oneMonthAgo;
   document.getElementById('endDate').valueAsDate = now;
   
-  // Первоначальная загрузка данных
   loadAnalytics();
 });
 
