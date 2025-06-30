@@ -9,7 +9,6 @@
 </head>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Простая проверка флага авторизации
     if (localStorage.getItem('isAdmin') !== 'true') {
       alert('Доступ к аналитике разрешен только администраторам');
       window.location.href = '/';
