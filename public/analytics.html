@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Аналитика заявок | NAU</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Простая проверка флага авторизации
+    if (localStorage.getItem('isAdmin') !== 'true') {
+      alert('Доступ к аналитике разрешен только администраторам');
+      window.location.href = '/';
+    }
+  });
+</script>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <i class="fas fa-server"></i>
+        NAU Analytics
+      </div>
+      <nav id="navMenu">
+        <a href="/">Главная</a>
+        <a href="#charts">Графики</a>
+        <div class="auth-buttons">
+          <button class="btn btn-outline" id="loginBtn">Войти</button>
+        </div>
+      </nav>
+      <div class="burger" id="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Аналитика заявок</h2>
+        <p>Статистика по полученным заявкам</p>
+      </div>
+
+      <div class="filters">
+        <div class="form-group">
+          <label for="startDate">Начальная дата</label>
+          <input type="date" id="startDate">
+        </div>
+        <div class="form-group">
+          <label for="endDate">Конечная дата</label>
+          <input type="date" id="endDate">
+        </div>
+        <button class="btn btn-primary" id="applyFilters">Применить</button>
+      </div>
+
+      <div id="charts" class="charts-grid">
+        <div class="chart-container">
+          <h3>Заявки по дням</h3>
+          <canvas id="dailyChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+          <h3>Распределение по услугам</h3>
+          <canvas id="serviceChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+          <h3>Заявки по времени суток</h3>
+          <canvas id="hourlyChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="/script.js"></script>
+  <script src="/analytics.js"></script>
+</body>
+</html>

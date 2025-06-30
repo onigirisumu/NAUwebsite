@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAU IT Solutions</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .admin-panel {
+      display: none;
+    }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('/images/developer.jpg') center/cover;
+    }
+    /* Новые стили для портфолио */
+    .portfolio-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .portfolio-item {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 2rem;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .portfolio-image {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 300px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .portfolio-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .portfolio-image:hover img {
+      transform: scale(1.05);
+    }
+    .portfolio-content {
+      flex: 1;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .portfolio-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      color: var(--accent);
+    }
+    .portfolio-tech {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+    .tech-tag {
+      background: rgba(67, 97, 238, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    .portfolio-button {
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .portfolio-item {
+        flex-direction: column;
+      }
+      .portfolio-image {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <i class="fas fa-server"></i>
+        NAU
+      </div>
+      <nav id="navMenu">
+        <a href="#about">О компании</a>
+        <a href="#services">Услуги</a>
+        <a href="#portfolio">Портфолио</a>
+        <a href="#contact">Контакты</a>
+        <a href="/analytics.html" id="analyticsLink" style="display: none;">
+          <i class="fas fa-chart-line"></i> Аналитика
+        </a>
+        <div class="auth-buttons">
+          <button class="btn btn-outline" id="loginBtn">Войти</button>
+        </div>
+      </nav>
+      <div class="burger" id="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="section hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>IT решения для бизнеса и государства</h1>
+        <p>Мы предоставляем комплексные IT-решения, технику и услуги для государственных тендеров и частных проектов.</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary">Наши проекты</button>
+          <button class="btn btn-outline">Оставить заявку</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="features">
+      <div class="grid">
+        <div class="card fade-in">
+          <i class="fas fa-laptop-code"></i>
+          <h3>Разработка ПО</h3>
+          <p>Создание современных веб-приложений и корпоративных систем</p>
+        </div>
+        <div class="card fade-in">
+          <i class="fas fa-server"></i>
+          <h3>Поставка техники</h3>
+          <p>Компьютеры, серверное оборудование и сетевая инфраструктура</p>
+        </div>
+        <div class="card fade-in">
+          <i class="fas fa-headset"></i>
+          <h3>IT-аутсорсинг</h3>
+          <p>Полное сопровождение IT-инфраструктуры</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Наши услуги</h2>
+        <p>Комплексные решения для вашего бизнеса</p>
+      </div>
+      
+      <div class="grid">
+        <div class="card fade-in">
+          <i class="fas fa-desktop"></i>
+          <h3>Компьютерная техника</h3>
+          <p>Поставка рабочих станций, ноутбуков и периферийных устройств</p>
+        </div>
+        
+        <div class="card fade-in">
+          <i class="fas fa-network-wired"></i>
+          <h3>Сетевое оборудование</h3>
+          <p>Проектирование и внедрение сетевой инфраструктуры</p>
+        </div>
+        
+        <div class="card fade-in">
+          <i class="fas fa-cloud"></i>
+          <h3>Облачные решения</h3>
+          <p>Развертывание частных и гибридных облаков</p>
+        </div>
+        
+        <div class="card fade-in">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Кибербезопасность</h3>
+          <p>Защита данных и системы мониторинга угроз</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Наши проекты</h2>
+        <p>Реализованные решения для наших клиентов</p>
+      </div>
+      
+      <div class="portfolio-container">
+        <!-- Проект 1 -->
+        <div class="portfolio-item fade-in">
+          <div class="portfolio-image">
+            <img loading="lazy" src="/images/developer.jpg" alt="Корпоративный портал">
+          </div>
+          <div class="portfolio-content">
+            <h3>Корпоративный портал для нефтегазовой компании</h3>
+            <p>Разработали комплексное решение для управления внутренними процессами крупной нефтегазовой компании. Система включает модули документооборота, управления проектами и аналитики.</p>
+            
+            <div class="portfolio-tech">
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">MongoDB</span>
+              <span class="tech-tag">Docker</span>
+            </div>
+            
+            <p><strong>Результаты:</strong> Увеличили эффективность процессов на 40%, сократили время обработки документов в 2 раза.</p>
+            
+            <div class="portfolio-button">
+              <button class="btn btn-outline">Подробнее о проекте</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Проект 2 -->
+        <div class="portfolio-item fade-in">
+          <div class="portfolio-content">
+            <h3>Мобильное приложение для финансовых услуг</h3>
+            <p>Создали современное мобильное приложение для банковского сектора с функциями переводов, платежей и инвестирования. Приложение поддерживает биометрическую аутентификацию и push-уведомления.</p>
+            
+            <div class="portfolio-tech">
+              <span class="tech-tag">React Native</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">GraphQL</span>
+              <span class="tech-tag">Stripe API</span>
+            </div>
+            
+            <p><strong>Результаты:</strong> Приложение скачали 50,000+ пользователей, средний рейтинг 4.8 в магазинах приложений.</p>
+            
+            <div class="portfolio-button">
+              <button class="btn btn-outline">Подробнее о проекте</button>
+            </div>
+          </div>
+          <div class="portfolio-image">
+            <img loading="lazy" src="/images/teamwork.jpg" alt="Мобильное приложение">
+          </div>
+        </div>
+        
+        <!-- Проект 3 -->
+        <div class="portfolio-item fade-in">
+          <div class="portfolio-image">
+            <img loading="lazy" src="/images/developer.jpg" alt="Система аналитики">
+          </div>
+          <div class="portfolio-content">
+            <h3>Система бизнес-аналитики для ритейла</h3>
+            <p>Разработали платформу для анализа продаж и покупательского поведения для сети супермаркетов. Система интегрируется с кассовыми аппаратами и CRM.</p>
+            
+            <div class="portfolio-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Tableau</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">AWS</span>
+            </div>
+            
+            <p><strong>Результаты:</strong> Клиент увеличил прибыль на 15% благодаря точному прогнозированию спроса.</p>
+            
+            <div class="portfolio-button">
+              <button class="btn btn-outline">Подробнее о проекте</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Оставить заявку</h2>
+        <p>Свяжитесь с нами для консультации</p>
+      </div>
+      
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Ваше имя</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="contact">Контактные данные</label>
+          <input type="text" id="contact" name="contact" required placeholder="Телефон или Email">
+        </div>
+        
+        <div class="form-group">
+          <label for="service">Интересующая услуга</label>
+          <select id="service" name="service">
+            <option value="">Выберите услугу</option>
+            <option value="development">Разработка ПО</option>
+            <option value="hardware">Поставка техники</option>
+            <option value="outsourcing">IT-аутсорсинг</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Сообщение</label>
+          <textarea id="message" name="message" placeholder="Опишите ваши требования"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Отправить заявку</button>
+      </form>
+      
+      <!-- Админ-панель -->
+      <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+          <h3>Панель администратора</h3>
+          <button class="btn btn-danger" id="logoutBtn">Выйти</button>
+        </div>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Имя</th>
+              <th>Контакт</th>
+              <th>Услуга</th>
+              <th>Дата</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="requestsTable">
+            <!-- Данные будут загружаться через JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="login-modal" id="loginModal">
+    <div class="login-form">
+      <button class="close-modal" id="closeModal">&times;</button>
+      <h2>Вход в панель управления</h2>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Логин</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Войти</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <span class="footer-logo">NAU</span>
+        <p>IT решения для бизнеса и государственного сектора</p>
+      </div>
+      
+      <div>
+        <h3>Контакты</h3>
+        <p><i class="fas fa-envelope"></i> info@nau.kz</p>
+        <p><i class="fas fa-phone"></i> +7 700 000 00 00</p>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 NAU IT Solutions</p>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
