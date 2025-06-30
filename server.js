@@ -10,7 +10,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Create Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -18,9 +17,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS
   }
 });
-// Добавим после подключения express и до маршрутов
 const adminAuth = (req, res, next) => {
-  // Проверка через простую сессию (в реальном проекте используйте JWT)
   if (req.headers.authorization === `Bearer ${process.env.ADMIN_SECRET}`) {
     next();
   } else {
@@ -28,7 +25,6 @@ const adminAuth = (req, res, next) => {
   }
 };
 
-// Verify transporter configuration
 transporter.verify((error, success) => {
   if (error) {
     console.error('Mail transporter error:', error);
@@ -37,7 +33,6 @@ transporter.verify((error, success) => {
   }
 });
 
-// Email template function
 const createEmailTemplate = (data) => `
 <!DOCTYPE html>
 <html>
@@ -75,8 +70,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => {
   console.log('MongoDB connected to NAU database');
   console.log('MongoDB URI:', process.env.MONGO_URI.replace(/:[^@]+@/, ':*****@'));
-  
-  // Check collection exists
   const db = mongoose.connection.db;
   return db.listCollections({ name: 'usernames' }).toArray();
 })
@@ -108,8 +101,6 @@ app.post('/submit-form', async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
-    
-    // Send email notification
     const mailOptions = {
       from: `"NAU Website Bot" <${process.env.EMAIL_USER}>`,
       to: process.env.ADMIN_EMAIL,
@@ -126,8 +117,6 @@ app.post('/submit-form', async (req, res) => {
     });
   } catch (err) {
     console.error('Form submission error:', err);
-    
-    // Handle email errors separately
     if (err.code === 'EAUTH') {
       console.error('Email authentication failed. Check your credentials.');
     }
@@ -150,7 +139,6 @@ app.get('/api/users', async (req, res) => {
     res.status(500).json({ message: 'Ошибка сервера' });
   }
 });
-// DELETE endpoint
 app.delete('/api/users/:id', async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -161,7 +149,6 @@ app.delete('/api/users/:id', async (req, res) => {
   }
 });
 
-// Analytics endpoints
 app.get('/api/analytics/daily', async (req, res) => {
   try {
     const dailyStats = await User.aggregate([
